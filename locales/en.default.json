@@ -1,0 +1,77 @@
+{
+  "general": {
+    "page": "Page {{ page }}",
+    "home": "Home",
+    "accessibility": {
+      "skip_to_content": "Skip to content",
+      "pagination": "Pagination navigation",
+      "go_to_page": "Go to page {{ index }}",
+      "go_to_item": "Go to item {{ index }}",
+      "item_nth_of_count": "Item {{ index }} of {{ count }}",
+      "drag": "Drag",
+      "close": "Close",
+      "next": "Next",
+      "previous": "Previous",
+      "play_video": "Play video",
+      "read_more": "Read more"
+    },
+    "social": {
+      "follow_on": "Follow on {{ social_media }}",
+      "share": "Share",
+      "share_on": "Share on {{ social_media }}",
+      "share_email": "Share by email"
+    }
+  },
+  "404": {
+    "general": {
+      "title": "Page not found",
+      "description": "The page you're looking for might have been moved, deleted, or temporarily unavailable.",
+      "continue_shopping": "Continue shopping"
+    }
+  },
+  "cart": {
+    "general": {
+      "title": "Cart",
+      "empty": "Your cart is empty",
+      "continue_shopping": "Continue shopping",
+      "weight": "Weight",
+      "subtotal": "Subtotal",
+      "total": "Total",
+      "taxes_and_shipping_policy_at_checkout_html": "Inclusive all taxes.",
+      "taxes_included_but_shipping_at_checkout": "Inclusive all taxes.",
+      "taxes_included_and_shipping_policy_html": "Inclusive all taxes.",
+      "taxes_and_shipping_at_checkout": "Inclusive all taxes.",
+      "add_order_note": "Add order note",
+      "edit_order_note": "Edit order note",
+      "order_note": "Order note",
+      "save_note": "Save",
+      "view_cart": "View cart",
+      "checkout": "Checkout",
+      "we_accept": "We accept"
+    },
+    "order": {
+      "product": "Product",
+      "total": "Total",
+      "quantity": "Quantity",
+      "change_quantity": "Change quantity",
+      "increase_quantity": "Increase quantity",
+      "decrease_quantity": "Decrease quantity",
+      "remove": "Remove"
+    },
+    "free_shipping_bar": {
+      "limit_unreached_html": "Spend {{ remaining_amount }} more and get free shipping!",
+      "limit_reached_html": "You are eligible for free shipping."
+    },
+    "shipping_estimator": {
+      "estimate_shipping": "Estimate shipping",
+      "country": "Country",
+      "province": "Province",
+      "zip": "Zip code",
+      "estimate": "Estimate",
+      "no_results": "Sorry, we do not ship to your address.",
+      "one_result": "There is one shipping rate for your address:",
+      "multiple_results": "There are several shipping rates for your address:",
+      "error": "One or more error occurred while retrieving shipping rates:"
+    }
+  }
+}

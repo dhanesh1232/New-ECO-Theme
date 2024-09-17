@@ -1,0 +1,48 @@
+<style>
+  .social-media {
+    gap: var(--spacing-3) var(--spacing-6);
+    flex-wrap: wrap;
+    display: flex;
+    gap: 8px;
+  }
+
+  .social-media--sm svg {
+    width: 1.25rem;
+    height: 1.25rem;
+  }
+
+  @media screen and (min-width: 700px) {
+    .social-media--sm svg {
+      width: 1.7rem;
+      height: 1.7rem;
+    }
+  }
+</style>
+{% capture announce_social %} 
+    {%- if section.settings.social_facebook != blank or shop.brand.metafields.social_links.facebook != blank -%}
+        <li>
+          <a href="{{ section.settings.social_facebook | default: shop.brand.metafields.social_links.facebook }}" class="tap-area" target="_blank" rel="noopener" aria-label="{{ 'general.social.follow_on' | t: social_media: 'Facebook' }}">
+            {%- render 'icon' with 'facebook' -%}
+          </a>
+        </li>
+      {%- endif -%}
+      {%- if section.settings.social_instagram != blank or shop.brand.metafields.social_links.instagram != blank -%}
+        <li>
+          <a href="{{ section.settings.social_instagram | default: shop.brand.metafields.social_links.instagram }}" class="tap-area" target="_blank" rel="noopener" aria-label="{{ 'general.social.follow_on' | t: social_media: 'Instagram' }}">
+            {%- render 'icon' with 'instagram' -%}
+          </a>
+        </li>
+      {%- endif -%}
+      {%- if section.settings.social_whatsapp != blank or shop.brand.metafields.social_links.instagram != blank -%}
+        <li>
+          <a href="{{ section.settings.social_whatsapp | default: shop.brand.metafields.social_links.instagram }}" class="tap-area" target="_blank" rel="noopener" aria-label="{{ 'general.social.follow_on' | t: social_media: 'Instagram' }}">
+            {%- render 'icon' with 'whatsapp' -%}
+          </a>
+        </li>
+      {%- endif -%}
+ {% endcapture %}
+{%- if announce_social != blank -%}
+  <ul class="social-media {% if size == 'sm' %}social-media--sm{% endif %}" role="list">
+    {{- announce_social -}}
+  </ul>
+{%- endif -%}

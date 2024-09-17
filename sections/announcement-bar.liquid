@@ -1,0 +1,367 @@
+<style>
+    :root {
+      --sticky-announcement-bar-enabled: {%- if section.settings.enable_sticky -%}1{% else %}0{% endif %};
+      --padding-top: {{ section.settings.select_padding_top | default: 1 }}px;
+      --padding-bottom: {{ section.settings.select_padding_bottom | default: 1 }}px;
+    }
+
+    {% if section.settings.enable_sticky %}
+      #shopify-section-{{ section.id }} {
+        position: sticky;
+        top: 0;
+        z-index: 20;
+      }
+
+      .shopify-section--header ~ #shopify-section-{{ section.id }} {
+        top: calc(var(--sticky-header-enabled, 0) * var(--header-height, 0px));
+      }
+    {% endif %}
+
+    .bg-color-gradient {
+
+      background:
+        {% if section.settings.background_gradient != blank %}
+         {{ section.settings.background_gradient }}
+         {% else %}
+        {{ section.settings.background }}{% endif %};
+      color: {{ section.settings.text_color }};
+      padding-top: var(--padding-top);
+      padding-bottom: var(--padding-bottom);
+    }
+
+
+  .announcement-bar__wrapper {
+    gap: var(--spacing-4);
+    margin-inline-start: auto;
+    margin-inline-end: auto;
+    display: flex;
+  }
+
+  .announcement-bar__static-list {
+    text-align: center;
+    place-items: center;
+    display: grid;
+  }
+
+  .announcement-bar__static-list > * {
+    grid-area: 1 / -1;
+    transition: opacity 0.5s ease-in-out, visibility 0.5s ease-in-out;
+  }
+  .reveal-visible {
+    opacity: 1;
+    visibility: visible;
+  }
+  .reveal-invisible {
+    opacity: 0;
+    visibility: hidden;
+  }
+  .tap-area {
+    position: relative;
+  }
+
+  .tap-area:before {
+    content: "";
+    inset: calc(-1 * var(--spacing-2-5));
+    position: absolute;
+  }
+  .slide-left-in {
+    animation: slide-left 1.5s forwards;
+  }
+
+  @keyframes slide-left {
+    from { transform: translateX(-100%); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+  }
+      .slide-right-in {
+      animation: slide-right 1.5s forwards;
+    }
+
+    @keyframes slide-right {
+      from { transform: translateX(100%); opacity: 0; }
+      to { transform: translateX(0); opacity: 1; }
+    }
+</style>
+
+{% if section.blocks.size > 0 %}
+  <div class="w-full">
+    <div
+      class="w-full flex items-center justify-between bg-color-gradient {{section.settings.select_announce_text_size}}"
+    >
+      {% if section.settings.social_facebook != blank
+        or section.settings.social_whatsapp != blank
+        or section.settings.social_instagram != blank
+      %}
+        <div class="hidden sm:flex sm:flex-row w-24 items-center justify-center {{section.settings.select_announce_text_size}}">
+          {% render 'announce-social' %}
+        </div>
+      {% endif %}
+
+      <div
+        class="
+          flex
+          items-center announcement-bar__wrapper
+          {% if section.blocks.size == 1 %}
+          justify-center
+          {% else %}
+          justify-between
+          {% endif %}
+          w-4/5
+        "
+      >
+        <!-- Left Arrow -->
+        {%- if section.blocks.size > 1 -%}
+          <button
+            class="tap-area"
+            is="prev-button"
+            aria-controls="announcement-bar"
+            aria-label="{{ 'general.accessibility.previous' | t }}"
+          >
+            {%- render 'icon' with 'chevron-left', direction_aware: true -%}
+          </button>
+        {%- endif -%}
+
+        <!-- Announcement Bar -->
+        <announcement-bar swipeable id="announcement-bar" class="announcement-bar__static-list w-4/5">
+          {%- for block in section.blocks -%}
+            <p
+              class="bold {{ section.settings.text_size }} {% unless forloop.first %}reveal-invisible{% endunless %}"
+              {{ block.shopify_attributes }}
+            >
+              {%- if block.settings.url != blank -%}
+                <a href="{{ block.settings.url }}">{{ block.settings.text | escape }}</a>
+              {%- else -%}
+                {{ block.settings.text | escape }}
+              {%- endif -%}
+            </p>
+          {%- endfor -%}
+        </announcement-bar>
+
+        <!-- Right Arrow -->
+        {%- if section.blocks.size > 1 -%}
+          <button
+            class="tap-area"
+            is="next-button"
+            aria-controls="announcement-bar"
+            aria-label="{{ 'general.accessibility.next' | t }}"
+          >
+            {%- render 'icon' with 'chevron-right', direction_aware: true -%}
+          </button>
+        {%- endif -%}
+      </div>
+
+      {% if section.settings.enable_contact_links %}
+        <div class="hidden sm:flex mt-1 mb-1 flex-row w-20 items-center justify-end text-2xl gap-2 pr-6">
+          <a
+            href="https://wa.me/+91{{ shop.phone }}"
+            class="flex flex-row gap-1 items-center {{section.settings.select_announce_text_size}}"
+          >
+            {% render 'icon' with 'phone' -%}
+          </a>
+          <a
+            href="mailto:{{ shop.email }}"
+            class="flex flex-row gap-1 items-center {{section.settings.select_announce_text_size}}"
+          >
+            {% render 'icon' with 'email' %}
+          </a>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+{% endif %}
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const rotation_speed = {{ section.settings.announcement_duration | times: 1000 }};
+    const announcementBar = document.querySelector('#announcement-bar');
+    const announcements = announcementBar.querySelectorAll('p');
+    let currentIndex = 0;
+
+    // Function to show the current announcement with animation
+    function showAnnouncement(index, direction='right') {
+      announcements.forEach((announcement, i) => {
+        if (i === index) {
+      announcement.classList.add('reveal-visible');
+      announcement.classList.remove('reveal-invisible');
+      if (direction === 'left') {
+        announcement.classList.add('slide-left-in');
+        announcement.classList.remove('slide-right-in');
+      } else {
+        announcement.classList.add('slide-right-in');
+        announcement.classList.remove('slide-left-in');
+      }
+    } else {
+      announcement.classList.add('reveal-invisible');
+      announcement.classList.remove('reveal-visible', 'slide-left-in', 'slide-right-in');
+    }
+      });
+    }
+
+    // Handle left and right buttons
+    document.querySelector("[is='prev-button']").addEventListener('click', () => {
+      currentIndex = (currentIndex - 1 + announcements.length) % announcements.length;
+      showAnnouncement(currentIndex, 'left');
+    });
+
+    document.querySelector("[is='next-button']").addEventListener('click', () => {
+      currentIndex = (currentIndex + 1) % announcements.length;
+      showAnnouncement(currentIndex, 'right');
+    });
+
+    // Optionally: Auto-rotate between announcements
+    {% if section.settings.auto_rotate %}
+      setInterval(() => {
+        currentIndex = (currentIndex + 1) % announcements.length;
+        showAnnouncement(currentIndex, 'right');
+      }, rotation_speed);
+    {% endif %}
+
+    // Initialize with the first announcement
+    showAnnouncement(currentIndex);
+  });
+</script>
+{% schema %}
+{
+  "name": "Announcement Bar",
+  "max_blocks": 12,
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "enable_sticky",
+      "label": "Enable sticky bar",
+      "default": false
+    },
+    {
+      "type": "select",
+      "id": "select_announce_text_size",
+      "label": "Announcement Text Size",
+      "options": [
+        {
+          "label": "Small",
+          "value": "text-sm"
+        },
+        {
+          "label": "Medium",
+          "value": "text-base"
+        },
+        {
+          "label": "Large",
+          "value": "text-lg"
+        },
+        {
+          "label": "Extra Large",
+          "value": "text-xl"
+        }
+      ],
+      "default": "text-base"
+    },
+    {
+      "type": "header",
+      "content": "Colors",
+      "info": "Gradient replaces solid colors when set."
+    },
+    {
+      "type": "color",
+      "id": "background",
+      "label": "Background",
+      "default": "#262626"
+    },
+    {
+      "type": "color_background",
+      "id": "background_gradient",
+      "label": "Background gradient"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text",
+      "default": "#fbfbfb"
+    },
+    {
+      "type": "checkbox",
+      "id": "auto_rotate",
+      "label": "Announcement auto rotation",
+      "default": false
+    },
+    {
+      "type": "range",
+      "id": "announcement_duration",
+      "label": "Announcement Duration (s)",
+      "default": 3,
+      "step": 1,
+      "max": 10,
+      "min": 2,
+      "unit": "S",
+      "info": "Set the duration in milliseconds for each announcement slide."
+    },
+    {
+      "type": "header",
+      "content": "View Contact/Social Information",
+      "info": "Enable for your needs."
+    },
+    {
+      "type": "header",
+      "content": "Social Media Icons",
+      "info": "Enter your social link"
+    },
+    {
+      "type": "url",
+      "id": "social_facebook",
+      "label": "Facebook"
+    },
+    {
+      "type": "url",
+      "id": "social_instagram",
+      "label": "Instagram"
+    },
+    {
+      "type": "url",
+      "id": "social_whatsapp",
+      "label": "WhatsApp"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_contact_links",
+      "label": "Show Contact",
+      "default": false
+    },
+    {
+      "type": "range",
+      "id": "select_padding_top",
+      "label": "Padding Top",
+      "min": 0,
+      "max": 25,
+      "step": 1,
+      "default": 4
+    },
+    {
+      "type": "range",
+      "id": "select_padding_bottom",
+      "label": "Padding Bottom",
+      "min": 0,
+      "max": 25,
+      "step": 1,
+      "default": 4
+    }
+  ],
+  "blocks": [
+    {
+      "type": "message",
+      "name": "Block",
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Text",
+          "default": "Announce something here"
+        },
+        {
+          "type": "url",
+          "id": "url",
+          "label": "Link"
+        }
+      ]
+    }
+  ],
+  "presets": []
+}
+{% endschema %}

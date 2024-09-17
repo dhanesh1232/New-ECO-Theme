@@ -1,0 +1,285 @@
+[
+  {
+    "name": "theme_info",
+    "theme_name": "ECO DNS",
+    "theme_version": "1.0.1",
+    "theme_author": "ECO cons",
+    "theme_documentation_url": "https://help.shopify.com/manual/online-store/themes",
+    "theme_support_url": "https://support.shopify.com/"
+  },
+  {
+    "name": "Theme Settings",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Theme Settings"
+      }
+    ]
+  },
+  {
+    "name": "Color Schemas",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Header Color"
+      },
+      {
+        "type": "color",
+        "id": "header_color",
+        "label": "Text color",
+        "default": "#262626"
+      },
+      {
+        "type": "color",
+        "label": "Background color",
+        "id": "header_color_bg",
+        "default": "#fbfbfb"
+      },
+      {
+        "type": "color",
+        "label": "Inside Nav Hover Color",
+        "id": "inside_nav_hover_color",
+        "default": "#FBFBFB"
+      },
+      {
+        "type": "color",
+        "label": "Inside Nav Hover BG",
+        "id": "inside_nav_hover_bg",
+        "default": "#262626"
+      },
+      {
+        "type": "color",
+        "id": "header_color_hover",
+        "label": "Text color (hover)",
+        "default": "#4C28FF"
+      },
+      {
+        "type": "color",
+        "id": "nav_color_inside",
+        "label": "Nav List Background",
+        "default": "#dddddd"
+      },
+      {
+        "type": "color_background",
+        "id": "background_gradient",
+        "label": "Background gradient"
+      },
+      {
+        "type": "header",
+        "content": "Cart/Account/Search Color Schemas"
+      },
+      {
+        "type": "color",
+        "label": "Cart Text Color",
+        "id": "cart_text_color",
+        "default": "#262626"
+      },
+      {
+        "type": "color",
+        "label": "Cart Price Text Color",
+        "id": "cart_price_text_color",
+        "default": "#DDDDDD"
+      },
+      {
+        "type": "color",
+        "label": "Cart Button Background Color",
+        "id": "cart_background_color",
+        "default": "#F8F8F8"
+      },
+      {
+        "type": "color",
+        "label": "Cart Button Background Color Hover",
+        "id": "cart_background_color_hover",
+        "default": "#0494ef"
+      },
+      {
+        "type": "color",
+        "label": "Cart Button Color",
+        "id": "cart_button_color",
+        "default": "#262626"
+      },
+      {
+        "type": "color",
+        "label": "Cart Button Color Hover",
+        "id": "cart_button_color_hover",
+        "default": "#ffffff"
+      },
+      {
+        "type": "header",
+        "content": "Color Schemas for Layout Pages"
+      },
+      /*Need to Add Color Schemas for Layout Pages*/
+      {
+        "type": "header",
+        "content": "Color Schemas for Footer Pages"
+      }
+      /* Need to Add Color Schemas for Footer Pages*/
+    ]
+  },
+  {
+    "name": "Cart",
+    "settings": [
+      {
+        "type": "select",
+        "id": "cart_type",
+        "label": "Cart type",
+        "options": [
+          {
+            "value": "drawer",
+            "label": "Drawer"
+          },
+          {
+            "value": "popover",
+            "label": "Confirmation popup"
+          },
+          {
+            "value": "page",
+            "label": "Page"
+          }
+        ],
+        "default": "drawer"
+      },
+      {
+        "type": "select",
+        "id": "cart_icon",
+        "label": "Cart icon",
+        "options": [
+          {
+            "value": "shopping_basket",
+            "label": "Shopping basket"
+          },
+          {
+            "value": "tote_bag",
+            "label": "Tote bag"
+          },
+          {
+            "value": "shopping_cart",
+            "label": "Shopping cart"
+          }
+        ],
+        "default": "shopping_cart"
+      }
+    ]
+  },
+  {
+    "name": "User Icon",
+    "settings": [
+      {
+        "type": "select",
+        "id": "user_icon_view",
+        "label": "User Icon View",
+        "info": "Only Applicable Desktop View",
+        "options": [
+          {
+            "value": "circle",
+            "label": "Circle"
+          },
+          {
+            "value": "plain",
+            "label": "Plain"
+          }
+        ],
+        "default": "circle"
+      }
+    ]
+  },
+  {
+    "name": "Social media",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Accounts"
+      },
+      {
+        "type": "url",
+        "id": "social_facebook",
+        "label": "Facebook"
+      },
+      {
+        "type": "url",
+        "id": "social_twitter",
+        "label": "X (formerly Twitter)"
+      },
+      {
+        "type": "url",
+        "id": "social_threads",
+        "label": "Threads"
+      },
+      {
+        "type": "url",
+        "id": "social_pinterest",
+        "label": "Pinterest"
+      },
+      {
+        "type": "url",
+        "id": "social_instagram",
+        "label": "Instagram"
+      },
+      {
+        "type": "url",
+        "id": "social_vimeo",
+        "label": "Vimeo"
+      },
+      {
+        "type": "url",
+        "id": "social_whatsapp",
+        "label": "WhatsApp"
+      },
+      {
+        "type": "url",
+        "id": "social_tumblr",
+        "label": "Tumblr"
+      },
+      {
+        "type": "url",
+        "id": "social_youtube",
+        "label": "YouTube"
+      },
+      {
+        "type": "url",
+        "id": "social_tiktok",
+        "label": "TikTok"
+      },
+      {
+        "type": "url",
+        "id": "social_linkedin",
+        "label": "LinkedIn"
+      },
+      {
+        "type": "url",
+        "id": "social_snapchat",
+        "label": "Snapchat"
+      },
+      {
+        "type": "url",
+        "id": "social_fancy",
+        "label": "Fancy"
+      },
+      {
+        "type": "url",
+        "id": "social_wechat",
+        "label": "WeChat"
+      },
+      {
+        "type": "url",
+        "id": "social_reddit",
+        "label": "Reddit"
+      },
+      {
+        "type": "url",
+        "id": "social_line",
+        "label": "LINE"
+      },
+      {
+        "type": "url",
+        "id": "social_spotify",
+        "label": "Spotify"
+      },
+      {
+        "type": "url",
+        "id": "social_21buttons",
+        "label": "21 Buttons"
+      }
+    ]
+  }
+]

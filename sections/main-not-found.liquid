@@ -1,0 +1,21 @@
+<div class="flex h-screen w-creen items-center justify-center">
+  <div class="flex items-center justify-center flex-col h-full w-full">
+    <h2 class="text-2xl">{{ '404.general.title' | t }}</h2>
+    <p class="text-md text-gray-600 text-wrap text-center p-3">{{ '404.general.description' | t }}</p>
+    {%- capture button_content -%}{{ '404.general.continue_shopping' | t }}{%- endcapture -%}
+    <a
+      href="{{ routes.all_products_collection_url }}"
+      class="inline-flex w-44 h-10 border-0 bg-blue-400 items-center justify-center rounded-lg hover:bg-green-400"
+    >
+      {{ button_content }}
+    </a>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "404",
+  "class": "shopify-section--404",
+  "tag": "section"
+}
+{% endschema %}
